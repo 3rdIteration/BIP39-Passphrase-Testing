@@ -11,6 +11,10 @@ Passphrase: internationalaccessoriesuniversity
 Address we are looking for: 
 0x944580c833ca9656978fE59981fdafA08D25572b
 
+24 Word Phrase (Same Phrase for both examples, used in all my videos)
+
+element entire sniff tired miracle solve shadow scatter hello never tank side sight isolate sister uniform advice pen praise soap lizard festival connect baby
+
 Command:
 
 python btcrecover.py --no-dupchecks --tokenlist google-500-english.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --max-tokens 3
