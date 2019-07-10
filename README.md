@@ -2,6 +2,8 @@
 
 A collection of tests and dictionary files that can be run to test the secuirty of a BIP39 passphrase using BTCRecover.
 
+For the sake of consistency, the branch of BTCRecover being tested is this one here: https://github.com/madacol/btcrecover/tree/p2wpkh-p2sh (BTCRecover with Segwit Support)
+
 Example 09: 1st Address, Longish Password, all lower case (three tokens)
 
 Passphrase: internationalaccessoriesuniversity
