@@ -3,7 +3,9 @@
 A collection of tests and dictionary files that can be run to test the secuirty of a BIP39 passphrase using BTCRecover.
 
 Example 09: 1st Address, Longish Password, all lower case (three tokens)
+
 Passphrase: internationalaccessoriesuniversity
+
 Address we are looking for: 
 0x944580c833ca9656978fE59981fdafA08D25572b
 
