@@ -1,0 +1,161 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fswiss\fprq2\fcharset0 Calibri;}{\f2\fswiss\fprq2\fcharset1 Segoe UI Symbol;}{\f3\fswiss\fprq2\fcharset0 Segoe UI Emoji;}{\f4\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs36\lang9 Brute Force BIP39 Passphrase with BTCRecover (Segwit)\fs32\par
+Typed in your recovery phrase... Wrong Addresses...\par
+\b0\i Oh Noes...\par
+Easy mistake to make, as some wallets (Electrum) don't even ask you to enter it twice...\par
+\b\i0 Important Notes to Start...\par
+
+\pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 You will need your correct 24 word seed\par
+{\pntext\f4\'B7\tab}You will need to know at least one public address that you used with the wallet...\par
+
+\pard\sa200\sl276\slmult1\tab\b0 For This example, let's say we purchased some Eth on \tab CoinBase. We log in and see that we sent it to...\par
+\i\par
+\b\i0 Using BTCRecover for a Eth Address\b0\par
+
+\pard 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li720\sa200\sl276\slmult1 Download repository of the Segwit fork of BTCRecover to a USB (Different to my original video)\line Get it here (Link in description) {{\field{\*\fldinst{HYPERLINK https://github.com/madacol/btcrecover/tree/p2wpkh-p2sh }}{\fldrslt{https://github.com/madacol/btcrecover/tree/p2wpkh-p2sh\ul0\cf0}}}}\f0\fs32\par
+{\pntext\f0 2.\tab}Set up an air gapped Ubuntu 18.04 environment for BTCRecover (Watch my previous video from 12:45 -> 21:36 for step by step instructions)\line\i You can also run it directly in Windows if you are THAT desperate...\i0\line\par
+
+\pard\sa200\sl276\slmult1\par
+Once that is done, we have two general approaches\par
+
+\pard\li720\sa200\sl276\slmult1\b 1) 100% Brute Force, Character Based Token List File\b0\line Works for short passphrases \par
+(5 very do-able, ~6 chars is the realistic limit)\par
+\b 2) Dictionary Attacks\par
+\b0 Can work effectively for long or complex passphrases\par
+Can try different dictionaries\par
+Can try combinations of words, brute force style...\par
+\b a) Via Password List File\b0\line Running through a pre-generated list of passwords.\par
+\tab Can be a dictionary list\par
+\tab Can be list of frequently used english words (eg: English, Google top words, etc)\par
+\tab Can be a password dump leaked or compiled from previous website hacks (eg: Rockyou, phpbb)\par
+\tab Can be something like the diceware lists\par
+\tab Could be a custom list of names, family members, pets, passwords you often use, etc.\par
+Can download them here: {{\field{\*\fldinst{HYPERLINK https://wiki.skullsecurity.org/Passwords }}{\fldrslt{https://wiki.skullsecurity.org/Passwords\ul0\cf0}}}}\f0\fs32\par
+\b b) Using a Token List File \par
+\b0 Can use any of the above dictionaries to look for mulitple words, connected together. \par
+Hits practical limits once the dictionaries start getting really large. (eg: 3 dice ware, short list words)\b\par
+\b0\i See previous video for "rules" that can speed this up...\i0\par
+
+\pard\sa200\sl276\slmult1\b Processing Power and Test Time...\b0\par
+The processing power that you have available to you will greatly impact how long this takes...\par
+\par
+\b 24 Word Phrase (Same Phrase for all examples)\b0\par
+\b Correct:\b0\par
+element entire sniff tired miracle solve shadow scatter hello never tank side sight isolate sister uniform advice pen praise soap lizard festival connect baby\par
+\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1\b\f1 Example 1: 1st Address, Short Password\par
+\b0 Passphrase: coin\par
+Address we are looking for:\b\par
+\b0 0xEE64187AAb5204b148F25F61202EAc2BeC312FE9\par
+\b\par
+\b0 python btcrecover.py --no-dupchecks --tokenlist tokens-BF-double.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --max-tokens 4\par
+\b\par
+\b0\i found via brute-force in 58 seconds\par
+\par
+\b\i0 Example 2: 1st Address, Short Password with capitals\par
+\b0 Passphrase: coiN\par
+Address we are looking for:\b\par
+\b0 0x53c7A00B704F33704fa6d3d5229d9c0EEd4068bC\b\par
+\b0 python btcrecover.py --no-dupchecks --tokenlist tokens-BF-double.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --max-tokens 4 \i --typos-case --typos 1\i0\par
+\b\par
+\b0\i found via brute-force in 5min, 26s\'85\par
+\par
+\b\i0 Example 3: 1st Address, Short Password with capitals\par
+\b0 Passphrase: Smith (eg: super common last name)\par
+Address we are looking for:\b\par
+\b0 0xDdDDc2D87eFbf6146bd020cf37c328CF68319D79 \par
+python btcrecover.py --no-dupchecks --tokenlist tokens-BF-double.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --max-tokens 5 \i --typos-case --typos 1\i0\par
+\b\par
+\b0\i found via english.txt in 32 minutes\'85\par
+found via rockyou.txt in 3 minutes\'85\par
+found via brute-force in 5 hours\'85\par
+\b\par
+\i0 Example 4: 1st Address, Short Password, 2 capitals\par
+\b0 Passphrase: YouTube\b\par
+\b0 Address we are looking for: 0x8234C21f7A870168dE09DEe70506d6bc0E37cAFf\par
+\par
+python btcrecover.py --no-dupchecks --passwordlist rockyou.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --typos-case --typos 2\par
+found via rockyou.txt in 2 minutes\'85\par
+\par
+\b Example 5: 1st Address, Long Password, all lower case (Thanks xkcd)\par
+\b0 Passphrase: correcthorsebatterystaple\b\par
+\b0 Address we are looking for: 0x2A457b6F2595B8B4Fe2938d03C657Ad25f2951C7\par
+\par
+python btcrecover.py --no-dupchecks --tokenlist english.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --max-tokens 4\par
+\b\par
+Out of memory\'85 \f2\u9785?\f3  (Using a 3mb file as a tokenlist doesn\rquote t work)\par
+
+\pard\sa200\sl276\slmult1\b0\f0\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1\b\f1 Example 8: 1st Address, Longish Password, all lower case (two tokens)\par
+\b0 Passphrase: correctquestion\b\par
+\b0 Address we are looking for: 0x9fB02596A7e25c23414bb2C1E2CCdA504b7bb496\par
+\par
+python btcrecover.py --no-dupchecks --tokenlist 1-1000.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --max-tokens 2\par
+\b\par
+Found in 5 minutes using 1-1000.txt\par
+\par
+Example 9: 1st Address, Longish Password, all lower case (three tokens)\par
+\b0 Passphrase: internationalaccessoriesuniversity\b\par
+\b0 Address we are looking for: \par
+0x944580c833ca9656978fE59981fdafA08D25572b\par
+\par
+python btcrecover.py --no-dupchecks --tokenlist google-500-english.txt --addr-limit 1 --bip32-path "m/44'/60'/0'/0" --wallet-type ethereum --max-tokens 3\par
+
+\pard\sa200\sl276\slmult1\f0\par
+\b\f1 Found in 2 days minutes using Google-500 list.... (Would have taken 1 day on the desktop CPU, 3hrs on a Ryzen Threadripper or Linode 48 core.)\b0\f0\par
+\par
+\b Computational Limits...\par
+
+\pard\cf2\kerning24\b0\fs27\lang3081 Possible passwords for \b PasswordLists\b0  scales linearly.\par
+
+\pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-176\li527\kerning0\fs23\tab Double size of the list, double time taken\'85\par
+{\pntext\f4\'B7\tab}\tab 10x sized list will take 10 as long\'85\par
+{\pntext\f4\'B7\tab}\tab Time = Speed x List Length\'85\par
+
+\pard\kerning24\fs27 Possible passwords for \b TokenList\b0  scales exponentially\par
+
+\pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-176\li527\kerning0\fs23\tab Doubling the size of the list will take 4x as long\'85\par
+{\pntext\f4\'B7\tab}\tab 10x size will take 100x as long\'85\par
+
+\pard\b\fs27 TokenList\b0  also increase exponentially with number of \ldblquote Tokens\rdblquote  you are looking for.\par
+
+\pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-270\li622\fs23\ldblquote 4 word\rdblquote  password with 100 word dictionary = 100^4\par
+{\pntext\f4\'B7\tab}\ldblquote 5 word\rdblquote  password with 100 word dictionary = 100^5\par
+
+\pard\li352\b Adding one more word, 25% increase, will take ~100 times as long\'85\par
+
+\pard\i\fs36 Processing time a question of probabilities\par
+
+\pard\sa200\sl276\slmult1\cf0\b0\i0\fs32\lang9\par
+You will also see from the examples, that when a result is found, it is rare that the test will run all the way to the end.\par
+\par
+\b My Suggested Workflow...\b0\par
+
+\pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-540\li540\cf2\kerning24\fs27\lang3081 Set up the environment and make sure it works with some of my examples here\'85 \par
+
+\pard\tab\i\fs24 (So you don\rquote t waste a month and discover you had a typo\'85)\par
+\tab\b\i0 Password lists on GitHub\b0\i\par
+
+\pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-540\li540\i0\fs27 Start with Brute-Force, 5 characters. \par
+
+\pard\i\tab\fs24 (Eg: Create a \b TokenList\b0  with letters in it)\par
+
+\pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-540\li540\i0\fs27 Try a couple of dictionaries like RockYou as a \b PasswordList\par
+{\pntext\f4\'B7\tab}\b0 Create a \b TokenList\b0  of every password, every family member, every pet, etc, that you use in passwords\par
+
+\pard\par
+For all of these, be selective about the \ldblquote typos\rdblquote  that you have BTCRecover to check\'85 \par
+
+\pard\sa200\sl276\slmult1\cf0\kerning0\b\fs32\lang9\par
+Concerning Cloud Servers...\par
+\b0 Understand the risks\b\par
+\ul A cloud based VPS is not a secure environment\ulnone\b0\par
+\fs22\par
+}
+ 
